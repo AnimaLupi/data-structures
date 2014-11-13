@@ -257,7 +257,7 @@ graph.removeEdge('A', 'B'); // => the edge object removed
       return inEdges.concat(outEdges);
     };
 
-    Graph.prototype.forEachNode = function(operation) {
+    Graph.prototype.forEachNode = function(operation, context) {
       /*
       Traverse through the graph in an arbitrary manner, visiting each node once.
       Pass a function of the form `fn(nodeObject, nodeId)`.
@@ -270,11 +270,11 @@ graph.removeEdge('A', 'B'); // => the edge object removed
       for (nodeId in _ref) {
         if (!__hasProp.call(_ref, nodeId)) continue;
         nodeObject = _ref[nodeId];
-        operation(nodeObject, nodeId);
+        operation.call(context, nodeObject, nodeId);
       }
     };
 
-    Graph.prototype.forEachEdge = function(operation) {
+    Graph.prototype.forEachEdge = function(operation, context) {
       /*
       Traverse through the graph in an arbitrary manner, visiting each edge once.
       Pass a function of the form `fn(edgeObject)`.
@@ -291,7 +291,7 @@ graph.removeEdge('A', 'B'); // => the edge object removed
         for (toId in _ref1) {
           if (!__hasProp.call(_ref1, toId)) continue;
           edgeObject = _ref1[toId];
-          operation(edgeObject);
+          operation.call(context, edgeObject);
         }
       }
     };
